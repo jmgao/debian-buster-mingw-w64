@@ -9,4 +9,4 @@ RUN apt-get install clang-8 && apt-get clean
 RUN ln -s /usr/bin/clang-8 /usr/bin/clang
 RUN ln -s /usr/bin/clang++-8 /usr/bin/clang++
 
-RUN CC=clang pip3 install git+https://github.com/jmgao/meson.git@clang-mingw
+RUN CC=clang pip3 install git+https://github.com/mesonbuild/meson.git@0.49.0
