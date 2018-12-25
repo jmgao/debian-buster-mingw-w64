@@ -1,11 +1,11 @@
-FROM debian:buster
+FROM jmgao/debian-buster-mingw-w64:latest
 MAINTAINER Josh Gao
 
-RUN echo 'APT::Install-Recommends "false";' >> /etc/apt/apt.conf.d/99recommends
-RUN echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf.d/99assumeyes
-RUN dpkg --add-architecture i386 && apt-get update
-RUN apt-get install git ssh make ninja-build python3-pip python3-setuptools && \
-    apt-get install gnupg software-properties-common && \
-    apt-get clean
+RUN apt-get install curl
+RUN curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain nightly
 
-RUN apt-get install mingw-w64 wine32 wine64 && apt-get clean
+ENV PATH "$PATH:/root/.cargo/bin"
+
+RUN rustup target add i686-pc-windows-gnu && \
+    rustup target add x86_64-pc-windows-gnu && \
+    rustup component add rustfmt
